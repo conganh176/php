@@ -1,10 +1,15 @@
 <?php
 
 class Vehicle {
-    var $wheels = 4;
-    var $hood = 1;
-    var $engine = 1;
+    public $wheels = 4;
+    protected $hood = 1;
+    private $engine = 1;
     var $doors = 4;
+    static $color = "Blue";
+
+    function __construct() {
+        echo "<br>Vehicle created<br>";
+    }
 
     function Move() {
         echo "Vehicle moves";
@@ -12,6 +17,10 @@ class Vehicle {
 
     function ModifyDoors($number) {
         $this->doors = $number;
+    }
+
+    function ChangeColor($color) {
+        Vehicle::$color = $color;
     }
 }
 
@@ -36,6 +45,20 @@ echo $modus->doors . "<br>";
 $modus->ModifyDoors(2);
 $modus->Move();
 echo "<br>" . $modus->doors;
+
+//inheritance
+class Plane extends Vehicle {
+    var $wheels = 10;
+}
+
+$jet = new Plane();
+echo "<br>Jet created<br>";
+echo "Jet moves with " . $jet->wheels . " wheels";
+
+//access static
+echo "<br>" . Vehicle::$color;
+$modus->ChangeColor("Red");
+echo "<br>" . Vehicle::$color;
 
 ?>
 
