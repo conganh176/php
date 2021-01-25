@@ -27,24 +27,10 @@
                                 $get_sidebar_categories = mysqli_query($connection, $query);
 
                                 while ($row = mysqli_fetch_assoc($get_sidebar_categories)) {
+                                    $category_id = $row['id'];
                                     $category_title = $row['title'];
-                                    echo "<li><a href=\"#\">{$category_title}</a></li>";
-                                }
-                                ?>
-                            </ul>
-                        </div>
-                        <!-- /.col-lg-6 -->
-
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <?php
-
-                                $query = "SELECT * FROM CATEGORIES";
-                                $get_sidebar_categories = mysqli_query($connection, $query);
-
-                                while ($row = mysqli_fetch_assoc($get_sidebar_categories)) {
-                                    $category_title = $row['title'];
-                                    echo "<li><a href=\"#\">{$category_title}</a></li>";
+        
+                                    echo "<li><a href='category.php?category={$category_id}'>{$category_title}</a></li>";
                                 }
                                 ?>
                             </ul>

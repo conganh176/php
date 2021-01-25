@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="index.php">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -19,8 +19,10 @@
                         $get_all_categories = mysqli_query($connection, $query);
 
                         while ($row = mysqli_fetch_assoc($get_all_categories)) {
+                            $category_id = $row['id'];
                             $category_title = $row['title'];
-                            echo "<li><a href=\"#\">{$category_title}</a></li>";
+
+                            echo "<li><a href='category.php?category={$category_id}'>{$category_title}</a></li>";
                         }
                     ?>
                     <li><a href="admin">Admin</a>

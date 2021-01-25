@@ -37,8 +37,24 @@ if (isset($_POST['submit'])) {
         <input type="text" name="author" class="form-control">
     </div>
     <div class="form-group">
-        <label for="category_id">Category ID</label>
-        <input type="text" name="category_id" class="form-control">
+        <label for="category_id">Category</label>
+        <select name="category_id" id="post_category" class="form-control">
+        <?php 
+        
+        $query = "SELECT * FROM categories";
+        $select_categories = mysqli_query($connection, $query);
+
+        confirm($select_categories);
+        
+        while ($row = mysqli_fetch_assoc($select_categories)) {
+            $category_id = $row['id'];
+            $category_title = $row['title'];
+
+            echo "<option value=$category_id>{$category_title}</option>";
+        }
+
+        ?>
+        </select>
     </div>
     <div class="form-group">
         <label for="image">Image</label>
