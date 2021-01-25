@@ -23,6 +23,7 @@
                             echo "<li><a href=\"#\">{$category_title}</a></li>";
                         }
                     ?>
+                    <li><a href="admin">Admin</a>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
