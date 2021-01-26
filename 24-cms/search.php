@@ -23,6 +23,7 @@
                     $search = $_POST['search']; 
 
                     $query = "SELECT * FROM posts WHERE tags LIKE '%$search%' ";
+                    $query .= "ORDER BY id DESC ";
                     $search_query = mysqli_query($connection, $query);
 
                     if (!$search_query) {

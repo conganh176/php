@@ -24,11 +24,11 @@
                         }
 
                         switch ($source) {
-                            case 'add_post':
+                            case 'add_comment':
                                 include 'includes/add_comment.php';
                                 break;
 
-                            case 'edit_post':
+                            case 'edit_comment':
                                 include 'includes/edit_comment.php';
                                 break;
 

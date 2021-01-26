@@ -19,7 +19,8 @@
 
                 <?php
 
-                $query = "SELECT * FROM POSTS";
+                $query = "SELECT * FROM POSTS ";
+                $query .= "ORDER BY id DESC ";
                 $get_all_posts = mysqli_query($connection, $query);
 
                 while ($row = mysqli_fetch_assoc($get_all_posts)) {
