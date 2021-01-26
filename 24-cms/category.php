@@ -24,7 +24,7 @@
 
                 }
 
-                $query = "SELECT * FROM posts where category_id = $category_id ";
+                $query = "SELECT * FROM posts WHERE category_id = $category_id AND status = 'published'";
                 $query .= "ORDER BY id DESC ";
                 $get_all_posts = mysqli_query($connection, $query);
 

@@ -22,7 +22,7 @@
                 if (isset($_POST['submit'])) {
                     $search = $_POST['search']; 
 
-                    $query = "SELECT * FROM posts WHERE tags LIKE '%$search%' ";
+                    $query = "SELECT * FROM posts WHERE tags LIKE '%$search%' AND status = 'published'";
                     $query .= "ORDER BY id DESC ";
                     $search_query = mysqli_query($connection, $query);
 

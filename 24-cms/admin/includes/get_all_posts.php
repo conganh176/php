@@ -10,6 +10,8 @@
                                     <th>Tags</th>
                                     <th>Comments</th>
                                     <th>Date</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,6 +66,7 @@ if (isset($_GET['delete'])) {
     $delete_query = mysqli_query($connection, $query);
 
     confirm($delete_query);
+    header("Location: posts.php");
 }
 
 ?>
