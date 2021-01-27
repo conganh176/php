@@ -27,7 +27,14 @@
                                         <i class="fa fa-file-text fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                <div class='huge'>12</div>
+                                        <?php
+                                        
+                                        $query = "SELECT * FROM posts ";
+                                        $get_all_posts = mysqli_query($connection, $query);
+                                        $post_count = mysqli_num_rows($get_all_posts);
+
+                                        ?>
+                                        <div class='huge'><?php echo $post_count; ?></div>
                                         <div>Posts</div>
                                     </div>
                                 </div>
@@ -49,8 +56,16 @@
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                    <div class='huge'>23</div>
-                                    <div>Comments</div>
+                                        <?php
+                                        
+                                        $query = "SELECT * FROM comments ";
+                                        $get_all_comments = mysqli_query($connection, $query);
+                                        $comment_count = mysqli_num_rows($get_all_comments);
+
+                                        ?>
+
+                                        <div class='huge'><?php echo $comment_count; ?></div>
+                                        <div>Comments</div>
                                     </div>
                                 </div>
                             </div>
@@ -71,8 +86,16 @@
                                         <i class="fa fa-user fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                    <div class='huge'>23</div>
-                                        <div> Users</div>
+                                        <?php
+                                        
+                                        $query = "SELECT * FROM users ";
+                                        $get_all_users = mysqli_query($connection, $query);
+                                        $user_count = mysqli_num_rows($get_all_users);
+
+                                        ?>
+
+                                        <div class='huge'><?php echo $user_count; ?></div>
+                                        <div>Users</div>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +116,15 @@
                                         <i class="fa fa-list fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class='huge'>13</div>
+                                        <?php
+                                        
+                                        $query = "SELECT * FROM categories ";
+                                        $get_all_categories = mysqli_query($connection, $query);
+                                        $category_count = mysqli_num_rows($get_all_categories);
+
+                                        ?>
+
+                                        <div class='huge'><?php echo $category_count; ?></div>
                                         <div>Categories</div>
                                     </div>
                                 </div>
@@ -109,6 +140,60 @@
                     </div>
                 </div>
                 <!-- /.row -->
+
+                <?php 
+                
+                $query = "SELECT * FROM posts WHERE status = 'draft' ";
+                $get_all_draft_posts = mysqli_query($connection, $query);
+                $draft_post_count = mysqli_num_rows($get_all_draft_posts);
+
+                $query = "SELECT * FROM comments WHERE status = 'not_approved' ";
+                $not_approve_comments = mysqli_query($connection, $query);
+                $not_approve_comment_count = mysqli_num_rows($not_approve_comments);
+
+                $query = "SELECT * FROM users WHERE role = 'subscriber' ";
+                $get_all_subscribers = mysqli_query($connection, $query);
+                $subscriber_count = mysqli_num_rows($get_all_subscribers);
+                
+                ?>
+
+                <div class="row">
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['bar']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                            ['Date', 'Count'],
+
+                            <?php 
+                            
+                            $element_text = ['Active Posts', 'Draft', 'Categories', 'Users', 'Subscribers', 'Comments', 'Pending Comments'];
+                            $element_count = [$post_count, $draft_post_count ,$category_count, $user_count, $subscriber_count, $comment_count, $not_approve_comment_count];
+
+                            for ($i = 0; $i < 7; $i++) {
+                                echo "['{$element_text[$i]}'" . ", " . "{$element_count[$i]}], ";
+                            }
+
+                            ?>
+
+                            ]);
+
+                            var options = {
+                            chart: {
+                                title: '',
+                                subtitle: '',
+                            }
+                            };
+
+                            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+                            chart.draw(data, google.charts.Bar.convertOptions(options));
+                        }
+                    </script>
+
+                    <div id="columnchart_material" style="width: auto; height: 500px;"></div>
+                </div>
 
             </div>
             <!-- /.container-fluid -->
