@@ -55,7 +55,7 @@ if (isset($_GET['id'])) {
         $update_post = mysqli_query($connection, $query);
         confirm($update_post);
 
-
+        echo "<h5>Post Updated. <a href='../post.php?id={$post_id}'>View post</a></h5>";
     }
 }
 
@@ -97,7 +97,7 @@ if (isset($_GET['id'])) {
     </div>
     <div class="form-group">
         <label for="content">Content</label>
-        <textarea type="text" name="content" class="form-control" rows="10"><?php echo $post_content; ?>
+        <textarea type="text" name="content" class="form-control" id="body" rows="10"><?php echo $post_content; ?>
         </textarea>
     </div>
     <div class="form-group">
@@ -106,7 +106,20 @@ if (isset($_GET['id'])) {
     </div>
     <div class="form-group">
         <label for="status">Status</label>
-        <input type="text" name="status" value="<?php echo $post_status; ?>" class="form-control">
+        <select name="status" id="post_status" class="form-control">
+            <?php 
+            
+            if ($post_status === 'draft') {
+                echo "<option value='draft' selected>Draft</option>";
+                echo "<option value='published'>Published</option>";
+            } else if ($post_status === 'published') {
+                echo "<option value='draft'>Draft</option>";
+                echo "<option value='published' selected>Published</option>";
+            }
+
+            ?>
+
+        </select>
     </div>
     <div class="form-group">
         <label for="status">Comments Count</label>

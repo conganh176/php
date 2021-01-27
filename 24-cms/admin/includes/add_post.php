@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="form-group">
         <label for="content">Content</label>
-        <textarea type="text" name="content" class="form-control" rows="10"></textarea>
+        <textarea type="text" name="content" class="form-control" id="body" rows="10"></textarea>
     </div>
     <div class="form-group">
         <label for="tags">Tags</label>
