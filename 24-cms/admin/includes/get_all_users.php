@@ -9,8 +9,9 @@
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Image</th>
-                                    <th>Approve</th>
-                                    <th>Not Approve</th>
+                                    <th>To Admin</th>
+                                    <th>To Subscriber</th>
+                                    <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
@@ -39,8 +40,9 @@
                                     echo "<td>$user_email</td>";
                                     echo "<td>$user_role</td>";
                                     echo "<td></td>";
-                                    echo "<td><a href='users.php?approve={$user_id}'>Approve</a></td>";
-                                    echo "<td><a href='users.php?not_approve={$user_id}'>Not Approve</a></td>";
+                                    echo "<td><a href='users.php?admin={$user_id}'>To Admin</a></td>";
+                                    echo "<td><a href='users.php?subscriber={$user_id}'>To Subscriber</a></td>";
+                                    echo "<td><a href='users.php?source=edit_user&id={$user_id}'>Edit</a></td>";
                                     echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
                                     echo "</tr>";
                                 }     
@@ -54,44 +56,30 @@
 if (isset($_GET['delete'])) {
     $deleted_id = $_GET['delete'];
 
-    //get post id
-    $query = "SELECT * FROM comments where id = {$deleted_id} ";
-    $get_comment = mysqli_query($connection, $query);
-    confirm($get_comment);
-
-    while ($row = mysqli_fetch_assoc($get_comment)) {
-        $post_id = $row['post_id'];
-    }
-
-    //delete comment
-    $query = "DELETE FROM comments WHERE id = {$deleted_id} ";
+    //delete user
+    $query = "DELETE FROM users WHERE id = {$deleted_id} ";
     $delete_query = mysqli_query($connection, $query);
     confirm($delete_query);
-
-    //decrease number
-    $query = "UPDATE posts SET comment_count = comment_count - 1 WHERE id = {$post_id} ";
-    $decrease_query = mysqli_query($connection, $query);
-    confirm($decrease_query);
     
-    header("Location: comments.php");
+    header("Location: users.php");
 }
 
-if (isset($_GET['approve'])) {
-    $approve_id = $_GET['approve'];
-    $query = "UPDATE comments SET status = 'approved' WHERE id = {$approve_id} ";
-    $approve_query = mysqli_query($connection, $query);
-    confirm($approve_query);
+if (isset($_GET['admin'])) {
+    $user_id = $_GET['admin'];
+    $query = "UPDATE users SET role = 'admin' WHERE id = {$user_id} ";
+    $to_admin_query = mysqli_query($connection, $query);
+    confirm($to_admin_query);
 
-    header("Location: comments.php");
+    header("Location: users.php");
 }
 
-if (isset($_GET['not_approve'])) {
-    $not_approve_id = $_GET['not_approve'];
-    $query = "UPDATE comments SET status = 'not_approved' WHERE id = {$not_approve_id} ";
-    $not_approve_query = mysqli_query($connection, $query);
-    confirm($not_approve_query);
+if (isset($_GET['subscriber'])) {
+    $user_id = $_GET['subscriber'];
+    $query = "UPDATE users SET role = 'subscriber' WHERE id = {$user_id} ";
+    $to_subscriber_query = mysqli_query($connection, $query);
+    confirm($to_subscriber_query);
 
-    header("Location: comments.php");
+    header("Location: users.php");
 }
 
 ?>
