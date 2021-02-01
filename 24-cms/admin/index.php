@@ -208,3 +208,5 @@
     </div>
 
 <?php include 'includes/admin-footer.php' ?>
+
+<script src="js/script.js"></script>
