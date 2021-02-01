@@ -65,22 +65,28 @@
                     $email = $_POST['email'];
                     $content = $_POST['content'];
 
-                    $query = "INSERT INTO comments ";
-                    $query .= "(post_id, author, email, content, status, date) ";
-                    $query .= "VALUES ($post_id, '{$author}', '{$email}', '{$content}', 'not_approved', now()) ";
+                    if (!empty($content) && !empty($author) && !empty($email)) {
+                        $query = "INSERT INTO comments ";
+                        $query .= "(post_id, author, email, content, status, date) ";
+                        $query .= "VALUES ($post_id, '{$author}', '{$email}', '{$content}', 'not_approved', now()) ";
 
-                    $add_comment_query = mysqli_query($connection, $query);
+                        $add_comment_query = mysqli_query($connection, $query);
 
-                    if (!$add_comment_query) {
-                        die("Query failed: " . mysqli_error($connection));
+                        if (!$add_comment_query) {
+                            die("Query failed: " . mysqli_error($connection));
+                        }
+
+                        $query = "UPDATE posts SET comment_count = comment_count + 1 WHERE id = {$post_id} ";
+                        $increase_query = mysqli_query($connection, $query);
+                        
+                        if (!$increase_query) {
+                            die("Query failed: " . mysqli_error($connection));
+                        }
+                    } else {
+                        echo "<script>alert('The field cannot be empty!')</script>";
                     }
 
-                    $query = "UPDATE posts SET comment_count = comment_count + 1 WHERE id = {$post_id} ";
-                    $increase_query = mysqli_query($connection, $query);
                     
-                    if (!$increase_query) {
-                        die("Query failed: " . mysqli_error($connection));
-                    }
                 }
                 
                 ?>

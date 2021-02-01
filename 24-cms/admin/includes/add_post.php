@@ -23,6 +23,8 @@ if (isset($_POST['submit'])) {
     $create_post_query = mysqli_query($connection, $query);
 
     confirm($create_post_query);
+    $post_id = mysqli_insert_id($connection);
+    echo "<h5>Post Created. <a href='../post.php?id={$post_id}'>View post</a></h5>";
 }
 
 ?>
@@ -70,7 +72,10 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="form-group">
         <label for="status">Status</label>
-        <input type="text" name="status" class="form-control">
+        <select name="status" id="" class="form-control">
+            <option value="draft">Draft</option>
+            <option value="published">Publish</option>
+        </select>
     </div>
     <div class="form-group">
         <input type="submit" name="submit" value="Publish Post" class="btn btn-primary"">
