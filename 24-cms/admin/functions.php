@@ -65,4 +65,26 @@ function confirm($result) {
     }
 }
 
+function users_online() {
+    global $connection;
+
+    $session = session_id();
+    $time = time();
+    $timeout_in_seconds = 30;
+    $timeout = $time - $timeout_in_seconds;
+
+    $query = "SELECT * FROM online WHERE session = '{$session}' ";
+    $get_user_session = mysqli_query($connection, $query);
+    $count = mysqli_num_rows($get_user_session);
+
+    if ($count == NULL) {
+        mysqli_query($connection, "INSERT INTO online(session, time) VALUES('$session', '$time') ");
+    } else {
+        mysqli_query($connection, "UPDATE online SET time = '$time' WHERE session = '{$session}' " );
+    }
+
+    $online_users = mysqli_query($connection, "SELECT * FROM online WHERE time > $timeout ");
+    return $online_users_count = mysqli_num_rows($online_users);
+}
+
 ?>
