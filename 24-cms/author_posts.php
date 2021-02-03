@@ -19,31 +19,14 @@
 
                 <?php
 
-                $limit = 3;
-
-                if (isset($_GET['page'])) {
-                    $page = $_GET['page'];
-                } else {
-                    $page = "";
+                if (isset($_GET['author'])) {
+                    $author = $_GET['author'];
                 }
 
-                if ($page == "" || $page == 1) {
-                    $page_1 = 0;
-                } else {
-                    $page_1 = ($page * $limit) - $limit;
-                }
-
-                //count posts
-                $query = "SELECT * FROM POSTS WHERE status = 'published'";
-                $get_all_posts = mysqli_query($connection, $query);
-                $count = mysqli_num_rows($get_all_posts);
-
-                $pages = ceil($count / $limit);
-
-                //get posts
-                $query = "SELECT * FROM POSTS WHERE status = 'published'";
+                $query = "SELECT * FROM posts WHERE ";
+                $query .= "author = '{$author}' AND ";
+                $query .= "status = 'published' ";
                 $query .= "ORDER BY id DESC ";
-                $query .= "LIMIT $page_1, {$limit} ";
                 $get_all_posts = mysqli_query($connection, $query);
 
                 while ($row = mysqli_fetch_assoc($get_all_posts)) {
@@ -82,19 +65,14 @@
                 
 
                 <!-- Pager -->
-                <ul class="pagination">
-                    <?php 
-                    
-                    for ($i = 1; $i <= $pages; $i++) {
-                        if ($i == $page) {
-                            echo "<li class='page-item active'><a class='page-link' href='index.php?page=$i'>{$i}</a></li>";
-                        } else {
-                            echo "<li class='page-item'><a class='page-link' href='index.php?page=$i'>{$i}</a></li>";
-                        }
-                    }
-
-                    ?>
-                </ul>
+                <!-- <ul class="pager">
+                    <li class="previous">
+                        <a href="#">&larr; Older</a>
+                    </li>
+                    <li class="next">
+                        <a href="#">Newer &rarr;</a>
+                    </li>
+                </ul> -->
 
             </div>
 

@@ -23,6 +23,11 @@
                     $post_id = $_GET['id'];
                 }
 
+                //add view
+                $query = "UPDATE posts SET views = views + 1 WHERE id = $post_id";
+                $add_view_query = mysqli_query($connection, $query);
+
+                //get post
                 $query = "SELECT * FROM posts WHERE id = $post_id";
                 $get_post_by_id = mysqli_query($connection, $query);
 
