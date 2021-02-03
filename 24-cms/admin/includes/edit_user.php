@@ -38,15 +38,26 @@
             $user_image = '';
         }
 
+        $query = "SELECT randSalt FROM users ";
+        $get_randSalt_query = mysqli_query($connection, $query);
+
+        if (!$get_randSalt_query) {
+            die("Query failed: " . mysqli_error($connection));
+        }
+
+        $row = mysqli_fetch_array($get_randSalt_query);
+        $salt = $row['randSalt'];
+
+        $hashedPassword = crypt($user_password, $salt);
+
         $query = "UPDATE users SET ";
         $query .= "firstname = '{$user_firstname}', ";
         $query .= "lastname = '{$user_lastname}', ";
         $query .= "username = '{$user_username}', ";
         $query .= "email = '{$user_email}', ";
-        $query .= "password = '{$user_password}', ";
+        $query .= "password = '{$hashedPassword}', ";
         // $query .= "image = '{$user_image}', ";
         $query .= "role = '{$user_role}' ";
-        // $query .= "randSalt = '', ";
         $query .= "WHERE id = {$user_id} ";
 
         $update_user = mysqli_query($connection, $query);

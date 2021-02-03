@@ -55,7 +55,7 @@
                                     echo "<td>$comment_date</td>";
                                     echo "<td><a href='comments.php?approve={$comment_id}'>Approve</a></td>";
                                     echo "<td><a href='comments.php?not_approve={$comment_id}'>Not Approve</a></td>";
-                                    echo "<td><a href='comments.php?delete={$comment_id}'>Delete</a></td>";
+                                    echo "<td><a onClick=\"javascript: return confirm('Confirm delete?')\" href='comments.php?delete={$comment_id}'>Delete</a></td>";
                                     echo "</tr>";
                                 }     
 

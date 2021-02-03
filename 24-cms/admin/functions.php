@@ -34,7 +34,7 @@ function find_all_categories() {
         echo "<tr>";
         echo "<td>{$category_id}</td>";
         echo "<td>{$category_title}</td>";
-        echo "<td><a href='categories.php?delete={$category_id}'>Delete</a></td>";
+        echo "<td><a onClick=\"javascript: return confirm('Confirm delete?')\" href='categories.php?delete={$category_id}'>Delete</a></td>";
         echo "<td><a href='categories.php?edit={$category_id}'>Edit</a></td>";
         echo "</tr>";
     }     

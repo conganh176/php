@@ -27,6 +27,7 @@
                         }
                     ?>
                     <li><a href="admin">Admin</a>
+                    <li><a href="registration.php">Register</a>
 
                     <?php 
                     
