@@ -9,21 +9,20 @@ if (isset($_POST['login'])) {
     $password = mysqli_real_escape_string($connection, $password);
 
     //encrypt password
-    $query = "SELECT randSalt FROM users ";
-    $get_randSalt_query = mysqli_query($connection, $query);
+    // $query = "SELECT randSalt FROM users ";
+    // $get_randSalt_query = mysqli_query($connection, $query);
 
-    if (!$get_randSalt_query) {
-        die("Query failed: " . mysqli_error($connection));
-    }
+    // if (!$get_randSalt_query) {
+    //     die("Query failed: " . mysqli_error($connection));
+    // }
 
-    $row = mysqli_fetch_array($get_randSalt_query);
-    $salt = $row['randSalt'];
+    // $row = mysqli_fetch_array($get_randSalt_query);
+    // $salt = $row['randSalt'];
 
-    $password = crypt($password, $salt);
+    // $password = crypt($password, $salt);
 
     $query = "SELECT * FROM users WHERE ";
     $query .= "username = '{$username}' ";
-    $query .= "AND password = '{$password}' ";
 
     $get_user_query = mysqli_query($connection, $query);
     if (!$get_user_query) {
@@ -39,7 +38,7 @@ if (isset($_POST['login'])) {
         $user_role = $row['role'];
     }
 
-   if ($username === $user_username || $password === $user_password) {
+    if (password_verify($password, $user_password)) {
         $_SESSION['username'] = $user_username;
         $_SESSION['firstname'] = $user_firstname;
         $_SESSION['lastname'] = $user_lastname;

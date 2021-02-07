@@ -13,6 +13,8 @@ if (isset($_POST['submit'])) {
     $user_image = '';
     $user_role = $_POST['role'];
 
+    $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
+
     // move_uploaded_file($post_image_temp, "../images/{$post_image}" );
 
     $query = "INSERT INTO users(username, password, firstname, lastname, email, image, role, randSalt) ";
