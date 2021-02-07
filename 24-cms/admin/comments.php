@@ -32,6 +32,10 @@
                                 include 'includes/edit_comment.php';
                                 break;
 
+                            case 'post_comment':
+                                include 'includes/post_comments.php';
+                                break;
+
                             default:
                                 include 'includes/get_all_comments.php';
                                 break;

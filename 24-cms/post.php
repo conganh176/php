@@ -81,8 +81,8 @@
                             die("Query failed: " . mysqli_error($connection));
                         }
 
-                        $query = "UPDATE posts SET comment_count = comment_count + 1 WHERE id = {$post_id} ";
-                        $increase_query = mysqli_query($connection, $query);
+                        // $query = "UPDATE posts SET comment_count = comment_count + 1 WHERE id = {$post_id} ";
+                        // $increase_query = mysqli_query($connection, $query);
                         
                         if (!$increase_query) {
                             die("Query failed: " . mysqli_error($connection));
