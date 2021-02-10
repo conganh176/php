@@ -36,7 +36,26 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="form-group">
         <label for="author">Author</label>
-        <input type="text" name="author" class="form-control">
+        <!-- <input type="text" name="author" class="form-control"> -->
+        <select name="author" id="post_author" class="form-control">
+        
+        <?php 
+        
+        $query = "SELECT * FROM users";
+        $select_users = mysqli_query($connection, $query);
+
+        confirm($select_users);
+        
+        while ($row = mysqli_fetch_assoc($select_users)) {
+            $user_id = $row['id'];
+            $user_name = $row['username'];
+
+            echo "<option value=$user_id>{$user_name}</option>";
+        }
+        
+        ?>
+
+        </select>
     </div>
     <div class="form-group">
         <label for="category_id">Category</label>
