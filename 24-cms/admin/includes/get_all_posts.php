@@ -80,10 +80,19 @@ if (isset($_POST['checkBoxArray'])) {
                                     echo "<td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='{$post_id}'></td>";
                                     echo "<td>$post_id</td>";
 
-                                    if (isset($post_author) || !empty($post_author)) {
+                                    if (!empty($post_author)) {
                                         echo "<td>$post_author</td>";
-                                    } elseif (isset($post_user) || !empty($post_user)) {
-                                        echo "<td>$post_user</td>";
+                                    } elseif (!empty($post_user)) {
+                                        $query = "SELECT * FROM users WHERE id = $post_user";
+                                        $get_user = mysqli_query($connection, $query);
+
+                                        confirm($get_user);
+                                        
+                                        while ($row = mysqli_fetch_assoc($get_user)) {
+                                            $user_name = $row['username'];
+
+                                            echo "<td>$user_name</td>";
+                                        }
                                     } else {
                                         echo "<td></td>";
                                     }
