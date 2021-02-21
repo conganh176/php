@@ -1,17 +1,17 @@
 <?php 
 
 if (isset($_POST['submit'])) {
-    $user_firstname = $_POST['firstname'];
-    $user_lastname = $_POST['lastname'];
-    $user_username = $_POST['username'];
+    $user_firstname = escape($_POST['firstname']);
+    $user_lastname = escape($_POST['lastname']);
+    $user_username = escape($_POST['username']);
 
     // $post_image = $_FILES['image']['name'];
     // $post_image_temp = $_FILES['image']['tmp_name'];
 
-    $user_email = $_POST['email'];
-    $user_password = $_POST['password'];
+    $user_email = escape($_POST['email']);
+    $user_password = escape($_POST['password']);
     $user_image = '';
-    $user_role = $_POST['role'];
+    $user_role = escape($_POST['role']);
 
     $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
 

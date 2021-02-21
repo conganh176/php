@@ -28,7 +28,7 @@
                                     <?php       //update query
                                     
                                     if (isset($_POST['update'])) {
-                                        $update_title = $_POST['title'];
+                                        $update_title = escape($_POST['title']);
                                         
                                         $query = "UPDATE categories SET title = '{$update_title}' WHERE id = {$category_id} ";
                                         $update_query = mysqli_query($connection, $query);

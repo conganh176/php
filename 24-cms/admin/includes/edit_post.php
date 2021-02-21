@@ -20,19 +20,19 @@ if (isset($_GET['id'])) {
     }
 
     if (isset($_POST['update_post'])) {
-        $post_title = $_POST['title'];
-        $post_author = $_POST['author'];
-        $post_category = $_POST['category_id'];
+        $post_title = escape($_POST['title']);
+        $post_author = escape($_POST['author']);
+        $post_category = escape($_POST['category_id']);
 
         $post_image = $_FILES['image']['name'];
         $post_image_temp = $_FILES['image']['tmp_name'];
 
-        $post_content = $_POST['content'];
-        $post_tags = $_POST['tags'];
-        $post_status = $_POST['status'];
+        $post_content = escape($_POST['content']);
+        $post_tags = escape($_POST['tags']);
+        $post_status = escape($_POST['status']);
 
-        $post_date = $_POST['date'];
-        $post_comments = $_POST['comments'];
+        $post_date = escape($_POST['date']);
+        $post_comments = escape($_POST['comments']);
 
         move_uploaded_file($post_image_temp, "../images/{$post_image}" );
 

@@ -1,24 +1,24 @@
 <?php 
 
 if (isset($_POST['submit'])) {
-    $post_title = $_POST['title'];
-    $post_author = $_POST['author'];
-    $post_category = $_POST['category_id'];
+    $post_title = escape($_POST['title']);
+    $post_author = escape($_POST['author']);
+    $post_category = escape($_POST['category_id']);
 
     $post_image = $_FILES['image']['name'];
     $post_image_temp = $_FILES['image']['tmp_name'];
 
-    $post_content = $_POST['content'];
-    $post_tags = $_POST['tags'];
-    $post_status = $_POST['status'];
+    $post_content = escape($_POST['content']);
+    $post_tags = escape($_POST['tags']);
+    $post_status = escape($_POST['status']);
 
     $post_date = date('d-m-y');
     $post_comments = 0;
 
     move_uploaded_file($post_image_temp, "../images/{$post_image}" );
 
-    $query = "INSERT INTO posts(category_id, title, author, date, image, content, tags, comment_count, status) ";
-    $query .= "VALUES({$post_category}, '{$post_title}', '{$post_author}', now(), '{$post_image}', '{$post_content}', '{$post_tags}', '{$post_comments}', '{$post_status}') ";
+    $query = "INSERT INTO posts(category_id, title, author, user, date, image, content, tags, comment_count, status) ";
+    $query .= "VALUES({$post_category}, '{$post_title}', '{$post_author}', '', now(), '{$post_image}', '{$post_content}', '{$post_tags}', '{$post_comments}', '{$post_status}') ";
 
     $create_post_query = mysqli_query($connection, $query);
 
@@ -36,26 +36,7 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="form-group">
         <label for="author">Author</label>
-        <!-- <input type="text" name="author" class="form-control"> -->
-        <select name="author" id="post_author" class="form-control">
-        
-        <?php 
-        
-        $query = "SELECT * FROM users";
-        $select_users = mysqli_query($connection, $query);
-
-        confirm($select_users);
-        
-        while ($row = mysqli_fetch_assoc($select_users)) {
-            $user_id = $row['id'];
-            $user_name = $row['username'];
-
-            echo "<option value=$user_id>{$user_name}</option>";
-        }
-        
-        ?>
-
-        </select>
+        <input type="text" name="author" class="form-control">
     </div>
     <div class="form-group">
         <label for="category_id">Category</label>
