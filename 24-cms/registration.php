@@ -4,16 +4,16 @@
 
 <?php 
 
-if (isset($_POST['submit'])) {
+$errors = [
+    'username' => '',
+    'email' => '',
+    'password' => ''
+];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-
-    $errors = [
-        'username' => '',
-        'email' => '',
-        'password' => ''
-    ];
 
     if (strlen($username) < 4) {
         $errors['username'] = 'Username is shorter than 4';
@@ -50,7 +50,6 @@ if (isset($_POST['submit'])) {
 
     if ($hasError == false) {
         registerUser($username, $email, $password);
-        loginUser($username, $password);
     }
 }
 

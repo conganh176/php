@@ -182,9 +182,9 @@ function loginUser($username, $password) {
         $_SESSION['firstname'] = $user_firstname;
         $_SESSION['lastname'] = $user_lastname;
         $_SESSION['role'] = $user_role;
-        header("Location: admin");
+        redirect('/php/24-cms/admin');
     } else {
-        header("Location: index.php");
+        redirect('/php/24-cms/index.php');
     }
 }
 
