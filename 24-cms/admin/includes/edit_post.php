@@ -84,7 +84,11 @@ if (isset($_GET['id'])) {
             $category_id = $row['id'];
             $category_title = $row['title'];
 
-            echo "<option value=$category_id>{$category_title}</option>";
+            if ($category_id == $post_category) {
+                echo "<option selected value=$category_id>{$category_title}</option>";
+            } else {
+                echo "<option value=$category_id>{$category_title}</option>";
+            }
         }
 
         ?>

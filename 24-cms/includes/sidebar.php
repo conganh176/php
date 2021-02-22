@@ -17,20 +17,30 @@
 
                 <!-- Login -->
                 <div class="well">
-                    <h4>Login</h4>
-                    <form action="includes/login.php" method="post">
-                        <div class="form-group">
-                            <input name="username" type="text" placeholder="Username" class="form-control">
-                        </div>
+                    <?php if(isset($_SESSION['role'])): ?>
 
-                        <div class="form-group">
-                            <input name="password" type="password" placeholder="Password" class="form-control">
-                        </div>
+                        <h4>Logged in as <?php echo $_SESSION['username']; ?></h4>
+                        <a href="admin/includes/logout.php" class="btn btn-primary">Logout</a>
 
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" name="login" type="submit">Login</button>
-                        </div>
-                    </form>
+                    <?php else: ?>
+
+                        <h4>Login</h4>
+                        <form action="includes/login.php" method="post">
+                            <div class="form-group">
+                                <input name="username" type="text" placeholder="Username" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input name="password" type="password" placeholder="Password" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" name="login" type="submit">Login</button>
+                            </div>
+                        </form>
+
+                    <?php endif; ?>
+                    
                     <!-- /.input-group -->
                 </div>
 

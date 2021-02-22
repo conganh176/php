@@ -12,8 +12,6 @@ if (isset($_POST['submit'])) {
     $body = $_POST['body'];
 
     mail($to, $subject, $body, $header);
-
-    echo "Mail sent";
     
 } else {
     

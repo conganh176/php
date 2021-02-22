@@ -23,7 +23,16 @@
                             $category_id = $row['id'];
                             $category_title = $row['title'];
 
-                            echo "<li><a href='category.php?category={$category_id}'>{$category_title}</a></li>";
+                            $category_class = '';
+                            $registration_class = '';
+
+                            $pageName = basename($_SERVER['PHP_SELF']);
+
+                            if (isset($_GET['category']) && $_GET['category'] == $category_id) {
+                                $category_class = 'active';
+                            }
+
+                            echo "<li  class='$category_class'><a href='category.php?category={$category_id}'>{$category_title}</a></li>";
                         }
                     ?>
                     <li><a href="admin">Admin</a>

@@ -28,34 +28,44 @@
                 $add_view_query = mysqli_query($connection, $query);
 
                 //get post
-                $query = "SELECT * FROM posts WHERE id = $post_id";
+                if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+                    $query = "SELECT * FROM posts WHERE id = $post_id";
+                } else {
+                    $query = "SELECT * FROM posts WHERE id = $post_id AND status = 'published'";
+                }
+
+                // $query = "SELECT * FROM posts WHERE id = $post_id";
                 $get_post_by_id = mysqli_query($connection, $query);
 
-                while ($row = mysqli_fetch_assoc($get_post_by_id)) {
-                    $post_title = $row['title'];
-                    $post_author = $row['author'];
-                    $post_date = $row['date'];
-                    $post_image = $row['image'];
-                    $post_content = $row['content'];
-
-                    ?>
+                if (mysqli_num_rows($get_post_by_id) < 1) {
+                    echo "<h3>No post available.</h3>";
+                } else {
+                    while ($row = mysqli_fetch_assoc($get_post_by_id)) {
+                        $post_title = $row['title'];
+                        $post_author = $row['author'];
+                        $post_date = $row['date'];
+                        $post_image = $row['image'];
+                        $post_content = $row['content'];
+    
+                        ?>
+                        
+                        <h2>
+                            <a href="#"><?php echo $post_title ?></a>
+                        </h2>
+                        <p class="lead">
+                            by <a href="author_posts.php?author=<?php echo $post_author ?>"><?php echo $post_author ?></a>
+                        </p>
+                        <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
+                        <hr>
+                        <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="">
+                        <hr>
+                        <p><?php echo $post_content ?></p>
+    
+                        <hr>
                     
-                    <h2>
-                        <a href="#"><?php echo $post_title ?></a>
-                    </h2>
-                    <p class="lead">
-                        by <a href="author_posts.php?author=<?php echo $post_author ?>"><?php echo $post_author ?></a>
-                    </p>
-                    <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
-                    <hr>
-                    <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="">
-                    <hr>
-                    <p><?php echo $post_content ?></p>
-
-                    <hr>
-                
-                <?php
-
+                    <?php
+    
+                    }
                 }
                 
                 ?>
