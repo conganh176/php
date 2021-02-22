@@ -1,4 +1,5 @@
 <?php
+ob_start();
 
 $db['host'] = 'localhost';
 $db['username'] = 'root';
