@@ -62,7 +62,12 @@ if (isset($_POST['checkBoxArray'])) {
                             <tbody>
                                 <?php 
                                 
-                                $query = "SELECT * FROM posts";
+                                // $query = "SELECT * FROM posts ORDER BY id DESC ";
+                                $query = "SELECT posts.id, posts.author, posts.user, posts.title, posts.category_id, posts.status, posts.image, ";
+                                $query .= "posts.tags, posts.comment_count, posts.date, posts.views, categories.title as category ";
+                                $query .= "FROM posts ";
+                                $query .= "LEFT JOIN categories ON posts.category_id = categories.id ORDER BY id DESC";
+
                                 $get_all_posts = mysqli_query($connection, $query);
                                 
                                 while ($row = mysqli_fetch_assoc($get_all_posts)) {
@@ -70,13 +75,14 @@ if (isset($_POST['checkBoxArray'])) {
                                     $post_title = $row['title'];
                                     $post_author = $row['author'];
                                     $post_user = $row['user'];
-                                    $post_category = $row['category_id'];
+                                    // $post_category = $row['category_id'];
                                     $post_date = $row['date'];
                                     $post_image = $row['image'];
                                     $post_tags = $row['tags'];
                                     $post_views = $row['views'];
                                     $post_comments = $row['comment_count'];
                                     $post_status = $row['status'];
+                                    $post_category = $row['category'];
 
                                     echo "<tr>";
                                     echo "<td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='{$post_id}'></td>";
@@ -101,12 +107,12 @@ if (isset($_POST['checkBoxArray'])) {
 
                                     echo "<td>$post_title</td>";
 
-                                    $query = "SELECT * FROM categories WHERE id = {$post_category} ";
-                                        $get_category = mysqli_query($connection, $query);
+                                    // $query = "SELECT * FROM categories WHERE id = {$post_category} ";
+                                    //     $get_category = mysqli_query($connection, $query);
                                             
-                                        while ($row = mysqli_fetch_assoc($get_category)) {
-                                            $post_category = $row['title'];
-                                    } 
+                                    //     while ($row = mysqli_fetch_assoc($get_category)) {
+                                    //         $post_category = $row['title'];
+                                    // } 
 
                                     echo "<td>$post_category</td>";
                                     echo "<td>$post_status</td>";

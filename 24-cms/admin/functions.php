@@ -5,6 +5,28 @@ function escape($string) {
     return mysqli_real_escape_string($connection, trim($string));
 }
 
+function recordCount($table) {
+    global $connection;
+
+    $query = "SELECT * FROM " . $table;
+    $get_all = mysqli_query($connection, $query);
+    
+    $result = mysqli_num_rows($get_all);
+    confirm($result);
+    return $result;
+}
+
+function checkWithStatus($table, $column, $status) {
+    global $connection;
+
+    $query = "SELECT * FROM $table WHERE $column = '$status' ";
+    $get_all_with_status = mysqli_query($connection, $query);
+    
+    $result = mysqli_num_rows($get_all_with_status);
+    confirm($result);
+    return $result;
+}
+
 function add_category() {
     global $connection;
 

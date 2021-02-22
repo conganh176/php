@@ -29,9 +29,7 @@
                                     <div class="col-xs-9 text-right">
                                         <?php
                                         
-                                        $query = "SELECT * FROM posts ";
-                                        $get_all_posts = mysqli_query($connection, $query);
-                                        $post_count = mysqli_num_rows($get_all_posts);
+                                        $post_count = recordCount('posts');
 
                                         ?>
                                         <div class='huge'><?php echo $post_count; ?></div>
@@ -58,9 +56,7 @@
                                     <div class="col-xs-9 text-right">
                                         <?php
                                         
-                                        $query = "SELECT * FROM comments ";
-                                        $get_all_comments = mysqli_query($connection, $query);
-                                        $comment_count = mysqli_num_rows($get_all_comments);
+                                        $comment_count = recordCount('comments');
 
                                         ?>
 
@@ -87,10 +83,8 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                        
-                                        $query = "SELECT * FROM users ";
-                                        $get_all_users = mysqli_query($connection, $query);
-                                        $user_count = mysqli_num_rows($get_all_users);
+
+                                        $user_count = recordCount('users');
 
                                         ?>
 
@@ -118,9 +112,7 @@
                                     <div class="col-xs-9 text-right">
                                         <?php
                                         
-                                        $query = "SELECT * FROM categories ";
-                                        $get_all_categories = mysqli_query($connection, $query);
-                                        $category_count = mysqli_num_rows($get_all_categories);
+                                        $category_count = recordCount('categories');
 
                                         ?>
 
@@ -143,21 +135,13 @@
 
                 <?php 
                 
-                $query = "SELECT * FROM posts WHERE status = 'published' ";
-                $get_all_published_posts = mysqli_query($connection, $query);
-                $published_post_count = mysqli_num_rows($get_all_published_posts);
+                $published_post_count = checkWithStatus('posts', 'status', 'published');
+                
+                $draft_post_count = checkWithStatus('posts', 'status', 'draft');
 
-                $query = "SELECT * FROM posts WHERE status = 'draft' ";
-                $get_all_draft_posts = mysqli_query($connection, $query);
-                $draft_post_count = mysqli_num_rows($get_all_draft_posts);
+                $not_approve_comment_count = checkWithStatus('comments', 'status', 'not_approved');
 
-                $query = "SELECT * FROM comments WHERE status = 'not_approved' ";
-                $not_approve_comments = mysqli_query($connection, $query);
-                $not_approve_comment_count = mysqli_num_rows($not_approve_comments);
-
-                $query = "SELECT * FROM users WHERE role = 'subscriber' ";
-                $get_all_subscribers = mysqli_query($connection, $query);
-                $subscriber_count = mysqli_num_rows($get_all_subscribers);
+                $subscriber_count = checkWithStatus('users', 'role', 'subscriber');
                 
                 ?>
 
