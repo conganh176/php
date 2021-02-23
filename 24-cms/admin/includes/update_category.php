@@ -29,13 +29,18 @@
                                     
                                     if (isset($_POST['update'])) {
                                         $update_title = escape($_POST['title']);
-                                        
-                                        $query = "UPDATE categories SET title = '{$update_title}' WHERE id = {$category_id} ";
-                                        $update_query = mysqli_query($connection, $query);
 
-                                        if (!$update_query) {
+                                        $statement = mysqli_prepare($connection, "UPDATE categories SET title = ? WHERE id = ? ");
+    
+                                        mysqli_stmt_bind_param($statement, 'si', $update_title, $category_id);
+
+                                        mysqli_stmt_execute($statement);
+
+                                        if (!$statement) {
                                             die("Query failed: " . mysqli_error($connection));
                                         }
+
+                                        mysqli_stmt_close($statement);
 
                                         header("Location: categories.php");
                                     }

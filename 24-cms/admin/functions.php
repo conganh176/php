@@ -39,14 +39,17 @@ function add_category() {
         if ($title == '' || empty($title)) {
             echo "The field is empty";
         } else {
-            $query = "INSERT INTO categories(title) ";
-            $query .= "VALUE('{$title}') ";
+            $statement = mysqli_prepare($connection, "INSERT INTO categories(title) VALUES(?) ");
     
-            $create_category_query = mysqli_query($connection, $query);
+            mysqli_stmt_bind_param($statement, 's', $title);
+
+            mysqli_stmt_execute($statement);
     
-            if (!$create_category_query) {
+            if (!$statement) {
                 die("Query failed: " . mysqli_error($connection));
             }
+
+            mysqli_stmt_close($statement);
     
             header("Location: categories.php");
         }
@@ -94,7 +97,7 @@ function isAdmin($username = '') {
     $query = "SELECT role FROM users WHERE username = '$username' ";
     $result = mysqli_query($connection, $query);
 
-    confrim($result);
+    confirm($result);
 
     $row = mysqli_fetch_array($result);
 
